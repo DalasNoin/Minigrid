@@ -96,7 +96,7 @@ def register_minigrid_envs():
     register(
         id="MiniGrid-DoorKey-6x6-v0",
         entry_point="minigrid.envs:DoorKeyEnv",
-        kwargs={"size": 5},
+        kwargs={"size": 6},
     )
 
     register(
@@ -108,6 +108,37 @@ def register_minigrid_envs():
     register(
         id="MiniGrid-DoorKey-16x16-v0",
         entry_point="minigrid.envs:DoorKeyEnv",
+        kwargs={"size": 16},
+    )
+
+    # PhasicDoorKey
+    # ----------------------------------------
+    #    - `MiniGrid-PhasicDoorKey-5x5-v0`
+    # - `MiniGrid-PhasicDoorKey-6x6-v0`
+    # - `MiniGrid-PhasicDoorKey-8x8-v0`
+    # - `MiniGrid-PhasicDoorKey-16x16-v0`
+
+    register(
+        id="MiniGrid-PhasicDoorKey-5x5-v0",
+        entry_point="minigrid.envs:PhasicDoorKeyEnv",
+        kwargs={"size": 5},
+    )
+
+    register(
+        id="MiniGrid-PhasicDoorKey-6x6-v0",
+        entry_point="minigrid.envs:PhasicDoorKeyEnv",
+        kwargs={"size": 6},
+    )
+
+    register(
+        id="MiniGrid-PhasicDoorKey-8x8-v0",
+        entry_point="minigrid.envs:PhasicDoorKeyEnv",
+        kwargs={"size": 8},
+    )
+
+    register(
+        id="MiniGrid-PhasicDoorKey-16x16-v0",
+        entry_point="minigrid.envs:PhasicDoorKeyEnv",
         kwargs={"size": 16},
     )
 
