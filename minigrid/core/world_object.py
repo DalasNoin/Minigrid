@@ -97,6 +97,10 @@ class WorldObj:
             v = Goal()
         elif obj_type == "lava":
             v = Lava()
+        elif obj_type == "interruption":
+            v = Interruption(color)
+        elif obj_type == "button":
+            v = Button(color)
         else:
             assert False, "unknown object type in decode '%s'" % obj_type
 
@@ -117,6 +121,62 @@ class Goal(WorldObj):
     def render(self, img):
         fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
 
+
+class Button(WorldObj):
+    """
+    Button that can be toggled by the agent
+    It should have global effects, like disabling the interrubtable space
+    """
+
+    def __init__(self, color: str):
+        self.is_toggled = False
+        super().__init__("button", color)
+
+    def toggle(self, env: MiniGridEnv, pos: tuple[int, int]) -> bool:
+        # if the button is already toggled, don't do anything
+        # else set is_toggled to True
+        # return True in any case
+        if not self.is_toggled:
+            self.is_toggled = True
+        return True
+
+    # def can_overlap(self):
+    #     return True
+
+    def render(self, img):
+        # create a shape of two circles with a line in between to make it look like a button
+        # when is_toggled is True, only the lower circle is visible
+        # when is_toggled is False, both circles are visible
+        if self.is_toggled:
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
+            fill_coords(img, point_in_line(0.5, 0.5, 0.5, 0.3, r=0.05), COLORS[self.color])
+        else:
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
+            fill_coords(img, point_in_line(0.5, 0.5, 0.5, 0.7, r=0.05), COLORS[self.color])
+
+class Interruption(WorldObj):
+    """
+    Interruption field may stop an agent when the agent stands on the same field
+    Mechanic can be added that turns off the interruption when a button is pressed
+    """
+    def __init__(self, color: str):
+        self.is_active = True
+        super().__init__("interruption", color)
+    
+    def render(self, img):
+        # render the interruption tile which may stop an agent when it steps on it
+        # when is_active is True, circle with an I in the center is drawn
+        # when is_active is False, color is set to grey
+        if self.is_active:
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
+        else:
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS["grey"])
+            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS["grey"])
+
+    
 
 class Floor(WorldObj):
     """
