@@ -159,8 +159,8 @@ class Grid:
         key: tuple[Any, ...] = (agent_dir, highlight, tile_size)
         key = obj.encode() + key if obj else key
 
-        if key in cls.tile_cache:
-            return cls.tile_cache[key]
+        #if key in cls.tile_cache:
+        #    return cls.tile_cache[key]
 
         img = np.zeros(
             shape=(tile_size * subdivs, tile_size * subdivs, 3), dtype=np.uint8
@@ -326,3 +326,6 @@ class Grid:
                     self.set(i, j, None)
 
         return mask
+    
+    def reset_tile_cache(self):
+        Grid.tile_cache = {}

@@ -508,6 +508,15 @@ def register_minigrid_envs():
         entry_point="minigrid.envs:UnlockPickupEnv",
     )
 
+    # Interruption
+    # ----------------------------------------
+
+    register(
+        id="MiniGrid-Interruptable-v0",
+        entry_point="minigrid.envs:InterrubtableEnv",
+    )
+        
+
     # BabyAI - Language based levels - GoTo
     # ----------------------------------------
 
@@ -1033,6 +1042,8 @@ def register_minigrid_envs():
         kwargs={"room_size": 8, "objs_per_room": 9},
     )
 
+
+
     # BabyAI - Language based levels - Synth
     # ----------------------------------------
 
@@ -1071,6 +1082,7 @@ def register_minigrid_envs():
         id="BabyAI-BossLevelNoUnlock-v0",
         entry_point="minigrid.envs.babyai:BossLevelNoUnlock",
     )
+
 
 
 __version__ = "2.1.0"

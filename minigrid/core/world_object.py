@@ -138,23 +138,51 @@ class Button(WorldObj):
         # return True in any case
         if not self.is_toggled:
             self.is_toggled = True
+            env.grid.reset_tile_cache()
+            print("Button toggled")
         return True
 
-    # def can_overlap(self):
-    #     return True
+    def can_overlap(self):
+        return True
 
     def render(self, img):
         # create a shape of two circles with a line in between to make it look like a button
         # when is_toggled is True, only the lower circle is visible
         # when is_toggled is False, both circles are visible
-        if self.is_toggled:
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
-            fill_coords(img, point_in_line(0.5, 0.5, 0.5, 0.3, r=0.05), COLORS[self.color])
+        if not self.is_toggled:
+            # This should consist of three squares that form a button, should make a sort of 3d effect
+            fill_coords(img, point_in_rect(0.15, 0.95, 0.15, 0.95), COLORS[self.color])
+            fill_coords(img, point_in_rect(0.08, 0.82, 0.08, 0.82), 0.45 * np.array(COLORS[self.color]))
+            #fill_coords(img, point_in_rect(0.12, 0.88, 0.12, 0.88), 0.45 * np.array(COLORS[self.color]))
         else:
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
-            fill_coords(img, point_in_line(0.5, 0.5, 0.5, 0.7, r=0.05), COLORS[self.color])
+            # This should consist of two squares that form a button, should make a sort of 3d effect
+            fill_coords(img, point_in_rect(0.15, 0.95, 0.15, 0.95), COLORS[self.color])
+            fill_coords(img, point_in_rect(0.18, 0.92, 0.18, 0.92), 0.45 * np.array(COLORS[self.color]))
+            
+
+    # def render(self, img):
+    #     c = COLORS[self.color]
+
+    #     if self.is_toggled:
+    #         fill_coords(img, point_in_rect(0.88, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.92, 0.96, 0.04, 0.96), (0, 0, 0))
+    #         return
+
+    #     # Door frame and door
+    #     if self.is_locked:
+    #         fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.06, 0.94, 0.06, 0.94), 0.45 * np.array(c))
+
+    #         # Draw key slot
+    #         fill_coords(img, point_in_rect(0.52, 0.75, 0.50, 0.56), c)
+    #     else:
+    #         fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.04, 0.96, 0.04, 0.96), (0, 0, 0))
+    #         fill_coords(img, point_in_rect(0.08, 0.92, 0.08, 0.92), c)
+    #         fill_coords(img, point_in_rect(0.12, 0.88, 0.12, 0.88), (0, 0, 0))
+
+    #         # Draw door handle
+    #         fill_coords(img, point_in_circle(cx=0.75, cy=0.50, r=0.08), c)
 
 class Interruption(WorldObj):
     """
@@ -164,17 +192,21 @@ class Interruption(WorldObj):
     def __init__(self, color: str):
         self.is_active = True
         super().__init__("interruption", color)
+
+    def can_overlap(self):
+        return True
     
     def render(self, img):
         # render the interruption tile which may stop an agent when it steps on it
         # when is_active is True, circle with an I in the center is drawn
         # when is_active is False, color is set to grey
         if self.is_active:
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS[self.color])
+            fill_coords(img, point_in_rect(0.05, 0.95, 0.05, 0.95), COLORS[self.color])
+            fill_coords(img, point_in_rect(0.15, 0.85, 0.15, 0.85), COLORS["black"])
             fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS[self.color])
         else:
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.4), COLORS["grey"])
-            fill_coords(img, point_in_circle(0.5, 0.5, 0.3), COLORS["grey"])
+            fill_coords(img, point_in_rect(0.05, 0.95, 0.05, 0.95), COLORS[self.color])
+            fill_coords(img, point_in_rect(0.15, 0.85, 0.15, 0.85), COLORS["black"])
 
     
 
