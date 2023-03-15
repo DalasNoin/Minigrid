@@ -139,7 +139,6 @@ class Button(WorldObj):
         if not self.is_toggled:
             self.is_toggled = True
             env.grid.reset_tile_cache()
-            print("Button toggled")
         return True
 
     def can_overlap(self):

@@ -25,4 +25,4 @@ from minigrid.envs.putnear import PutNearEnv
 from minigrid.envs.redbluedoors import RedBlueDoorEnv
 from minigrid.envs.unlock import UnlockEnv
 from minigrid.envs.unlockpickup import UnlockPickupEnv
-from minigrid.envs.interruptable import InterrubtableEnv
+from minigrid.envs.interruptable import InterruptableEnv

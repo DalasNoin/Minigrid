@@ -512,8 +512,16 @@ def register_minigrid_envs():
     # ----------------------------------------
 
     register(
-        id="MiniGrid-Interruptable-v0",
-        entry_point="minigrid.envs:InterrubtableEnv",
+        id="MiniGrid-Interruptable-8x8-v0",
+        entry_point="minigrid.envs:InterruptableEnv",
+        kwargs={"size": 8},
+    )
+        
+
+    register(
+        id="MiniGrid-Interruptable-6x6-v0",
+        entry_point="minigrid.envs:InterruptableEnv",
+        kwargs={"size": 6},
     )
         
 
